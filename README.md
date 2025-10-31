@@ -14,7 +14,7 @@ A lightweight Flutter app that shows how much storage is used by **Images, Video
 
 ## 🚀 Build & Run
 ```bash
-git clone https://github.com/your-username/storage_tracker.git
+git clone https://github.com/Dikshant005/storage-tracker
 cd storage_tracker
 flutter pub get
 flutter run --release
