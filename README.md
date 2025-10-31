@@ -1,16 +1,42 @@
-# storage_tracker
+# Storage Tracker
 
-A new Flutter project.
+A lightweight Flutter app that shows how much storage is used by **Images, Videos, Audio, Documents** and **Other** files on your Android device.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✅ Features
+- No **broad storage permission** (`MANAGE_EXTERNAL_STORAGE`) required  
+- Uses **MediaStore-only** approach → Google-Play compliant  
+- Auto-switches to **KB / MB / GB**  
+- Works from **Android 10 → 14**
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 🚀 Build & Run
+```bash
+git clone https://github.com/your-username/storage_tracker.git
+cd storage_tracker
+flutter pub get
+flutter run --release
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🔐 Permissions Asked
+
+| Permission | Reason |
+|------------|--------|
+| `READ_MEDIA_IMAGES` | Count & size of pictures |
+| `READ_MEDIA_VIDEO` | Count & size of videos |
+| `READ_MEDIA_AUDIO` | Count & size of music |
+| `READ_EXTERNAL_STORAGE` *(legacy)* | Fallback for Android ≤ 11 |
+
+## 📂 Scan Logic
+
+| Step | What Happens |
+|------|--------------|
+| 1 | Request narrow media permissions (`READ_MEDIA_*`) at runtime |
+| 2 | Walk **only** shared external storage (`/storage/emulated/0`) |
+| 3 | Skip **Android/data** & **Android/obb** (scoped-storage protected) |
+| 4 | Group files by extension → Images, Videos, Audio, Documents |
+| 5 | Sum **count** and **bytes** per group |
+| 6 | Other = every remaining file **not** in the four groups above |
+| 7 | Convert bytes → KB / MB / GB with one-decimal precision |
